@@ -1,25 +1,38 @@
 import React, { useState } from "react";
+import {useNavigate, Link} from "react-router-dom";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import axios from 'axios';
 import {toast} from 'react-hot-toast';
 
-const Register = () => {
+const Register = ({history}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const urlCreateNewUser = 'http://localhost:8080/api/register/';
 
   const handleClick = async (e) => {
-    //console.log(name, email, password);
     try{ 
         e.preventDefault(); // to avoid reloading the page.
-        const {data} = await axios.post("/register", {
+        const {data} = await axios.post(urlCreateNewUser, {
             name,
             email, 
             password
         });
         console.log(data);
-        toast.success('Registration successful. Please login');
+
+        if(data.error){
+            toast.error(data.error);
+        }else{
+            setName('');
+            setEmail('');
+            setPassword('');
+            toast.success(`Hey ${data.user.name}. You are part of the team now. Congrats`);
+            navigate("/login")
+        }
+
     }catch(err){
         console.log(err);
         toast.error("Something went wrong.Try agai");

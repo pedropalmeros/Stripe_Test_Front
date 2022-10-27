@@ -16,7 +16,7 @@ function App() {
       <Nav/>
       <Toaster 
           position="buttom-right"
-          toastOptions={{duration: 2000,}}/>
+          toastOptions={{duration: 4000,}}/>
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/Register' element={<Register />}/>
