@@ -1,0 +1,4 @@
+npm i react-router-dom @ant-design/icons
+npm install react-router-dom localforage match-sorter sort-by
+npm i axios react-hot-toast
+
